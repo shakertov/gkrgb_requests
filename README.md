@@ -13,3 +13,4 @@ Django, Django ORM, Bootstrap, HTML, CSS.
 ![Скриншот 1](https://github.com/shakertov/gkrgb_requests/blob/main/images/1.png)
 ![Скриншот 2](https://github.com/shakertov/gkrgb_requests/blob/main/images/2.png)
 ![Скриншот 3](https://github.com/shakertov/gkrgb_requests/blob/main/images/4.png)
+![Скриншот 4](https://github.com/shakertov/gkrgb_requests/blob/main/images/diagram.png)
