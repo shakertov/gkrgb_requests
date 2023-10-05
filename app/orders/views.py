@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from orders.models import OrderItemModel
+from orders.models import OrderItemModel, OrderModel
 from orders.forms import OrderForm
 from cart.cart import Cart
 from cart.forms import CartAddProductForm
@@ -29,7 +29,8 @@ def order_create(request):
 		# со ссылкой на оплату
 		order_items = OrderItemModel.objects.filter(order_id=request.session.get('order_created_id'))
 		total_price = sum(item['quantity'] * item['price'] for item in order_items.values('price', 'quantity'))
-		return render(request, 'orders/created.html', {'order_items': order_items, 'total_price': total_price})
+		order = get_object_or_404(OrderModel, id=request.session.get('order_created_id'))
+		return render(request, 'orders/created.html', {'order_items': order_items, 'total_price': total_price, 'order': order})
 	cart = Cart(request)
 	if len(cart) == 0:
 		msg = 'Ваша заявка пуста. Добавьте в неё услугу(и) для возможности перейти к шагу 2.'

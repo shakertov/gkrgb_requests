@@ -20,6 +20,13 @@
 		<p>
 			<a href="">Вы можете оплатить заказ</a> | <a href="{% url 'orders:order_reset' %}">Или отменить заказ</a>
 		</p>
+		<hr>
+		<p class="fw-bold">Дополнительная информация:</p>
+		<p>Заявитель: {{order.last_name}} {{order.first_name}}</p>
+		<p>Адресс: {{ order.address }}</p>
+		<p>Город: {{ order.city }}</p>
+		<p>Email: {{ order.email }}</p>
+		<p>Комментарий: {{ order.comment }}</p>
 	</div>
 </div>
 {% endblock %}
