@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{{ product.title }}
+
+{% endblock %}
+
+{% block content %}
+
+<br />{{ product.title }}
+<br />{{ product.description }}<br />
+<br />$ {{ product.price }}
+<br />{{ product.stock }}
+
+<form action="{% url 'cart:cart_add' product.id %}" method='post'>
+	{%csrf_token%}
+	{{cart_product_form}}
+	<input type="submit" value="В корзину">
+</form>
+
+{% endblock %}

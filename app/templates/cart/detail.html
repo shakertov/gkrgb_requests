@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Ваша корзина
+{% endblock %}
+
+{% block content %}
+
+Ваша корзина:<br /><br />
+
+{% for item in cart %}
+
+	{% with product=item.product %}
+	<a href="{{product.get_absolute_url}}">Название товара: {{product.title}}</a><br />
+	Количество: {{item.quantity}}<br />
+	Стоимость: {{item.price}}<br />
+	Сумма: {{item.total_price}}<br />
+	<a href="{% url 'cart:cart_remove' product.id %}">Удалить из корзины</a><br /><br />
+	{% endwith %}
+
+{% endfor %}
+<br />
+Сумма: {{cart.get_total_price}}
+<br />
+<a href="{% url 'catalog:product_list' %}">Перейти в каталог</a> | 
+<a href="{% url 'orders:order_create' %}">Оформить заказ</a>
+
+{% endblock %}

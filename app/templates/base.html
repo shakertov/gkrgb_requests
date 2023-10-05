@@ -1,0 +1,50 @@
+{% load django_bootstrap5 %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>
+    {% block title %}Не найдено{% endblock %}
+  </title>
+  <style type="text/css">
+  </style>
+</head>
+<body>
+
+  <div class="bg-secondary">
+    <div class="container p-5 text-white text-center">
+      <h3>[GK-RGB] ОНЛАЙН ЗАЯВКА НА УСЛУГИ</h3>
+    </div>
+  </div>
+
+  <div class="bg-light">
+    <div class="container p-3 text-primary">
+      <ul class="nav nav-pills justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link
+          {% if request.resolver_match.view_name == 'orders:order_prepare' %} active {% endif %}" href="{% url 'orders:order_prepare' %}">Шаг 1. Выбор услуг</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link 
+          {% if request.resolver_match.view_name == 'orders:order_create' %} active {% endif %}" href="{% url 'orders:order_create' %}">Шаг 2. Оформление заявки</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Шаг 3. Оплата</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Вернуться на сайт</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+<div class="container my-5">
+  {% block content %}
+  Не найдено
+  {% endblock %}
+</div>
+
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+</body>
+</html>

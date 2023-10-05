@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+
+{% if not category %}Каталог товаров{% else %}Список товаров по категории - {{ category.title }}{% endif %}
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col">
+		{% bootstrap_messages %}
+		<p>Здесь вы можете оформить заявку на наши услуги онлайн. Для этого выберите необходимое количество, если требуется и нажмите добавить в заявку. В процессе оформления можно будет конкретизировать Ваши требования в форме, которая будет шаге непосредственного оформления заявки.</p>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div class="card">
+			<div class="card-header text-center">
+				Наши услуги
+			</div>
+			<div class="card-body">
+				{% for product in products %}
+				<p class="fw-bold">{{ product.title }}</p>
+				<p>{{ product.description }}</p>
+				<form action="{% url 'cart:cart_add' product.id %}" method='post'>
+					{% bootstrap_form form %}
+					{%csrf_token%}
+					{% bootstrap_button button_type="submit" content="Добавить в заявку" %}
+				</form>
+				<hr>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="card">
+			<div class="card-header text-center">
+				Заявка
+			</div>
+			<div class="card-body">
+				{% for item in cart %}
+
+				{% with product=item.product %}
+				<p class="fw-bold">{{product.title}}</p>
+				<p>Количество: {{item.quantity}} - 
+				Стоимость: {{item.price}} - 
+				Сумма: {{item.total_price}}</p>
+				<a href="{% url 'cart:cart_remove' product.id %}">Убрать из заявки</a>
+				<hr>
+				{% endwith %}
+
+				{% endfor %}
+			</div>
+			<div class="card-footer text-body-secondary text-center">
+				{% with total_items=cart|length %}
+				{% if total_items > 0 %}
+				Общая сумма: {{cart.get_total_price}} руб. -> <a href="{% url 'orders:order_create' %}">Оформить заказ</a>
+				{% else %}
+				Пусто. В заявке ничего нет. Добавьте услуги.
+				{% endif %}
+				{% endwith %}				
+			</div>
+		</div>
+	</div>
+
+</div>
+{% endblock %}

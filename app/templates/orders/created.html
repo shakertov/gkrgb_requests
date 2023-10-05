@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+Заказ успешно сформирован
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-7 mx-auto border p-3 rounded-3">
+		{% bootstrap_messages %}
+		<p>Заказ под номером "{{ request.session.order_created_id }}" создан. Его необходимо оплатить!</p>
+		<p class="fw-bold">Детали Вашей заявки:</p>
+		<ol>
+			{% for item in order_items %}
+			<li>{{item.product.title}} - кол-во: {{item.quantity}}; цена: {{item.price}} руб.; сумма: {{ item.get_cost }} руб.</li>
+			{% endfor %}
+		</ol>
+		<p><span class="fw-bold">Итого к оплате:</span> {{ total_price }} руб.</p>
+		<p>
+			<a href="">Вы можете оплатить заказ</a> | <a href="{% url 'orders:order_reset' %}">Или отменить заказ</a>
+		</p>
+	</div>
+</div>
+{% endblock %}
